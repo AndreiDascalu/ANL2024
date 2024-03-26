@@ -5,7 +5,7 @@ from pathlib import Path
 from utils.plot_trace import plot_trace
 from utils.runners import run_session
 
-RESULTS_DIR = Path("results", time.strftime('%Y%m%d-%H%M%S'))
+RESULTS_DIR = Path("results", time.strftime("%Y%m%d-%H%M%S"))
 
 # create results directory if it does not exist
 if not RESULTS_DIR.exists():
@@ -22,8 +22,8 @@ settings = {
             "parameters": {"storage_dir": "agent_storage/DreamTeam109Agent"},
         },
         {
-            "class": "agents.template_agent.template_agent.TemplateAgent",
-            "parameters": {"storage_dir": "agent_storage/TemplateAgent"},
+            "class": "agents.frankenagent.frankenagent.FrankenAgent",
+            "parameters": {"storage_dir": "agent_storage/FrankenAgent"},
         },
     ],
     "profiles": ["domains/domain00/profileA.json", "domains/domain00/profileB.json"],
@@ -38,7 +38,11 @@ if not session_results_trace["error"]:
     plot_trace(session_results_trace, RESULTS_DIR.joinpath("trace_plot.html"))
 
 # write results to file
-with open(RESULTS_DIR.joinpath("session_results_trace.json"), "w", encoding="utf-8") as f:
+with open(
+    RESULTS_DIR.joinpath("session_results_trace.json"), "w", encoding="utf-8"
+) as f:
     f.write(json.dumps(session_results_trace, indent=2))
-with open(RESULTS_DIR.joinpath("session_results_summary.json"), "w", encoding="utf-8") as f:
+with open(
+    RESULTS_DIR.joinpath("session_results_summary.json"), "w", encoding="utf-8"
+) as f:
     f.write(json.dumps(session_results_summary, indent=2))
